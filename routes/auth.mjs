@@ -57,7 +57,7 @@ router.post("/login", async (req, res, next) => {
     }
   } catch (error) {
     console.log("error getting data mongodb", error);
-    res, send(500).send("server error, pleas try later");
+    res.send(500).send("server error, pleas try later");
   }
 });
 
