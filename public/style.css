@@ -5,6 +5,22 @@ body {
   font-family: 'Edu SA Beginner', cursive;
 }
 
+.logout-button {
+  background-color: #315dd4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 16px;
+  margin-top: 10px;
+  margin-right: 20px; /* Add margin to create space between button and right edge */
+  cursor: pointer;
+  float: right; /* Float the button to the right */
+}
+
 /* .popup {
   position: fixed;
   top: 50%;

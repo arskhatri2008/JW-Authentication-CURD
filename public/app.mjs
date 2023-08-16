@@ -21,6 +21,8 @@
 //     })
 // }
 
+// import resp from './login.mjs';
+const userEmail = sessionStorage.getItem('userEmail');
 document.querySelector('#form1').addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -107,21 +109,41 @@ document.querySelector('#form1').addEventListener("submit", function (event) {
         });
 }
     
-    window.delPost = function (postId) {
+//     window.delPost = function (postId , from) {
+//         axios.delete(`api/v1/mongoDB/post/${postId}`)
+//         .then(function (){
+//             console.log(postId)
+//             if(from === userEmail){
+//                 getAllPosts()
+//             }else{
+//                 alert('You are not authorized to delete this post.')
+//             }
+//     })
+//     .catch(function (error){
+//         console.log(error)
+//         alert('Error in data deleting.')
+//     })
+// }
+
+window.delPost = function (postId, from) {
+    if (from === userEmail) {
         axios.delete(`api/v1/mongoDB/post/${postId}`)
         .then(function (){
-            console.log(postId)
-            getAllPosts()
-    })
-    .catch(function (error){
-        console.log(error)
-        alert('Error in data deleting.')
-    })
+            console.log(postId);
+            getAllPosts();
+        })
+        .catch(function (error){
+            console.log(error);
+            alert('Error in data deleting.');
+        });
+    } else {
+        alert('You are not authorized to delete this post.');
+    }
 }
 
-
 window.editPost = function(postId , title , text , from) {
-    console.log("_id: ",postId , "title: ",title, "text: ",text , "from: ",from)
+    console.log("_id: ",postId , "title: ",title, "text: ",text , "from: ",from ,)
+    if (from === userEmail){
     document.querySelector(`#card-${postId}`).innerHTML = 
     `
     <form onsubmit="save('${postId}')">
@@ -130,7 +152,9 @@ window.editPost = function(postId , title , text , from) {
     <button class='save'>Save</button>
     </form>
     
-    `
+    `}else {
+        alert('You are not authorized to edit this post.');
+    }
     // console.log()
 }
 
@@ -152,8 +176,23 @@ window.save = function(postId) {
     })
 }
 
+// Logout process
+document.querySelector('#logoutButton').addEventListener('click', async () => {
+    try {
+        // Send a request to the server to clear the httpOnly cookie
+        await axios.get('/api/v1/mongoDB/logout');
 
+        // Remove user token and email from sessionStorage
+        sessionStorage.removeItem('userEmail');
+        sessionStorage.removeItem('userToken');
+
+        // Redirect to login page
+        window.location.href = '/login.html';
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 document.addEventListener('DOMContentLoaded', function(){
-getAllPosts()
-})
+    getAllPosts()
+    })

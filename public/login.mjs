@@ -13,9 +13,12 @@ document.querySelector('#loginForm').addEventListener('submit',async(event)=>{
         console.log('response: ', resp)
 
         if(resp.status === 200){
+            sessionStorage.setItem('userEmail', email);
             window.location.href = '/index.html'
         }
     } catch (error) {
         console.log(error)
     }
 })
+
+//export {email};

@@ -125,4 +125,17 @@ router.post("/signup", async (req, res, next) => {
 //   res.send('Error occurred.')
 // }
 
+// Logout route
+router.get('/logout', async (req, res) => {
+  try {
+      // Clear the httpOnly cookie by setting an expired date
+      res.cookie('token', '', { expires: new Date(0), httpOnly: true, secure: true });
+
+      res.status(200).send('Logged out successfully');
+  } catch (error) {
+      console.error('Error during logout:', error);
+      res.status(500).send('Server error during logout');
+  }
+});
+
 export default router;
