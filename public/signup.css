@@ -1,19 +1,13 @@
-/* Reset some default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Basic styling for the body */
+/* Reset and basic styling for the body */
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
+    margin: 0;
 }
 
 /* Center the signup form */
 #signupForm {
-    max-width: 300px;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -36,6 +30,7 @@ input[type="password"] {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    padding-right: 5px;
 }
 
 /* Style the signup button */
@@ -69,4 +64,20 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+/* Responsive media queries */
+@media screen and (max-width: 768px) {
+    #signupForm {
+        max-width: 100%;
+        padding: 10px;
+        border-radius: 0;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    button[type="submit"] {
+        width: 100%;
+    }
 }
