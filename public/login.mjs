@@ -1,16 +1,16 @@
-document.querySelector('#loginForm').addEventListener('submit',(event)=>{
+document.querySelector('#loginForm').addEventListener('submit',async(event)=>{
     event.preventDefault()
 
     const email = document.querySelector('#emailInput').value
     const password = document.querySelector('#passwordInput').value
 
     try {
-        const resp = axios.post('/api/v1/mongoDB/login',{
+        const resp = await axios.post('/api/v1/mongoDB/login',{
             email: email,
             password: password
         })
         
-        console.log('response: ', resp.status)
+        console.log('response: ', resp)
 
         if(resp.status === 200){
             window.location.href = '/index.html'

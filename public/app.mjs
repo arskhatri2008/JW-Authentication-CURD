@@ -83,14 +83,14 @@ document.querySelector('#form1').addEventListener("submit", function (event) {
             // console.log(response.data);
             let showPosts = "";
             response.data.map((eachPost) => {
-                // console.log(eachPost)
+                console.log(eachPost)
                 showPosts +=
                     `
             <div class='post-div' id="card-${eachPost._id}">  
             <h3 class='post-h3'>${eachPost.title}</h3>
             <p class='post-p'>${eachPost.text}</p>
-            <button class='post-edit' onclick="editPost('${eachPost._id}','${eachPost.title}','${eachPost.text}')">Edit</button>
-            <button class='post-del' onclick="delPost('${eachPost._id}')">Delete</button>
+            <button class='post-edit' onclick="editPost('${eachPost._id}','${eachPost.title}','${eachPost.text}','${eachPost.from}')">Edit</button>
+            <button class='post-del' onclick="delPost('${eachPost._id}','${eachPost.from}')">Delete</button>
             </div>
             <br>
              `;
@@ -110,6 +110,7 @@ document.querySelector('#form1').addEventListener("submit", function (event) {
     window.delPost = function (postId) {
         axios.delete(`api/v1/mongoDB/post/${postId}`)
         .then(function (){
+            console.log(postId)
             getAllPosts()
     })
     .catch(function (error){
@@ -119,8 +120,8 @@ document.querySelector('#form1').addEventListener("submit", function (event) {
 }
 
 
-window.editPost = function(postId , title , text) {
-    console.log("_id: ",postId , "title: ",title, "text: ",text)
+window.editPost = function(postId , title , text , from) {
+    console.log("_id: ",postId , "title: ",title, "text: ",text , "from: ",from)
     document.querySelector(`#card-${postId}`).innerHTML = 
     `
     <form onsubmit="save('${postId}')">
